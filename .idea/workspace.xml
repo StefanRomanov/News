@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="25956747-9997-4c78-b14f-e51dc6fdd1b9" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1SNvHiAzJP9NqQVNvjekW7jvZ9a" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../book-store" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="settings.editor.selected.configurable" value="configurable.group.editor" />
+  </component>
+  <component name="RunManager">
+    <configuration name="NewsApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="news" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.news.NewsApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="25956747-9997-4c78-b14f-e51dc6fdd1b9" name="Default Changelist" comment="" />
+      <created>1571416781813</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1571416781813</updated>
+      <workItem from="1571416788322" duration="3109000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="2128" y="239" width="384" height="630" key="#com.intellij.ide.util.MemberChooser" timestamp="1571418658349">
+      <screen x="1360" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2128" y="239" width="384" height="630" key="#com.intellij.ide.util.MemberChooser/1360.0.1920.1080/0.312.1360.768@1360.0.1920.1080" timestamp="1571418658349" />
+    <state x="2103" y="310" width="434" height="488" key="FileChooserDialogImpl" timestamp="1571418388080">
+      <screen x="1360" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2103" y="310" width="434" height="488" key="FileChooserDialogImpl/1360.0.1920.1080/0.312.1360.768@1360.0.1920.1080" timestamp="1571418388080" />
+  </component>
+</project>
