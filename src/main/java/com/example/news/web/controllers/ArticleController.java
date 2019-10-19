@@ -1,16 +1,19 @@
 package com.example.news.web.controllers;
 
-import com.example.news.domain.models.ArticleViewModel;
+import com.example.news.domain.models.binding.ArticleBindingModel;
+import com.example.news.domain.models.view.ArticleViewModel;
 import com.example.news.services.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import javax.validation.Valid;
+import java.util.Date;
 
-@RestController("/api/articles")
+
+@RestController
+@RequestMapping("/api")
 public class ArticleController {
 
     private ArticleService articleService;
@@ -20,28 +23,30 @@ public class ArticleController {
         this.articleService = articleService;
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/")
-    public List<ArticleViewModel> getArticles(){
-        return null;
+    @GetMapping(value = "/articles", produces = "application/json")
+    public @ResponseBody Page<ArticleViewModel> getArticles(Pageable pageable,
+                                                            @RequestParam(name = "title", required = false) String title,
+                                                            @RequestParam(name = "date", required = false) Date date){
+        return this.articleService.getAll(pageable,title,date);
     };
 
-    @RequestMapping(method = RequestMethod.GET, path = "/:id")
-    public ArticleViewModel getOneArticle(@PathVariable String id){
-        return null;
+    @GetMapping(value = "/articles/{id}", produces = "application/json")
+    public @ResponseBody ArticleViewModel getOneArticle(@PathVariable String id){
+        return this.articleService.getOne(id);
     };
 
-    @RequestMapping(method = RequestMethod.PUT, path = "/:id")
-    public ArticleViewModel editArticle(@PathVariable String id){
-        return null;
+    @PutMapping(value = "/articles/{id}", produces = "application/json")
+    public @ResponseBody boolean editArticle(@PathVariable String id, @RequestBody ArticleBindingModel model){
+        return this.articleService.editArticle(id,model);
     };
 
-    @RequestMapping(method = RequestMethod.DELETE, path = "/:id")
-    public ArticleViewModel deleteArticle(@PathVariable String id){
-        return null;
+    @DeleteMapping(value = "/articles/{id}", produces = "application/json")
+    public @ResponseBody boolean deleteArticle(@PathVariable String id){
+        return this.articleService.deleteArticle(id);
     };
 
-    @RequestMapping(method = RequestMethod.POST, path = "/")
-    public ArticleViewModel createArticle(@PathVariable String id){
-        return null;
+    @PostMapping(value = "/articles", produces = "application/json")
+    public @ResponseBody boolean  createArticle(@Valid @RequestBody ArticleBindingModel model){
+        return this.articleService.createArticle(model);
     };
 }

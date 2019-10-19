@@ -1,4 +1,4 @@
-package com.example.news.domain.models;
+package com.example.news.domain.models.view;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
