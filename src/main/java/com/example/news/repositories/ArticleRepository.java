@@ -10,7 +10,7 @@ import java.util.Date;
 
 @Repository
 public interface ArticleRepository extends JpaRepository<Article, String> {
-    Page<Article> getAllByTitleAndDate(Pageable pageable, String title, Date date);
-    Page<Article> getAllByTitle(Pageable pageable, String title);
+    Page<Article> getAllByTitleContainsAndDate(Pageable pageable, String title, Date date);
+    Page<Article> getAllByTitleContains(Pageable pageable, String title);
     Page<Article> getAllByDate(Pageable pageable, Date date);
 }

@@ -9,7 +9,10 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpStatusCodeException;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Date;
 
@@ -26,7 +29,13 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public ArticleViewModel getOne(String id){
-        return this.modelMapper.map(this.articleRepository.getOne(id), ArticleViewModel.class);
+        Article article = this.articleRepository.findById(id).orElse(null);
+
+        if(article == null){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Article with that ID not found");
+        }
+
+        return this.modelMapper.map(article, ArticleViewModel.class);
     }
 
     @Override
@@ -34,52 +43,72 @@ public class ArticleServiceImpl implements ArticleService {
         if((title == null || title.equals("")) && date == null){
             return PageMapper.mapPage(this.articleRepository.findAll(pageable),ArticleViewModel.class,modelMapper);
         } else if(date == null){
-            return PageMapper.mapPage(this.articleRepository.getAllByTitle(pageable,title),ArticleViewModel.class,modelMapper);
+            return PageMapper.mapPage(this.articleRepository.getAllByTitleContains(pageable,title),ArticleViewModel.class,modelMapper);
         } else if(title == null || title.equals("")){
             return PageMapper.mapPage(this.articleRepository.getAllByDate(pageable,date),ArticleViewModel.class,modelMapper);
         } else {
-            return PageMapper.mapPage(this.articleRepository.getAllByTitleAndDate(pageable, title,date),ArticleViewModel.class,modelMapper);
+            return PageMapper.mapPage(this.articleRepository.getAllByTitleContainsAndDate(pageable, title,date),ArticleViewModel.class,modelMapper);
         }
     }
 
     @Override
-    public boolean createArticle(ArticleBindingModel model){
+    public ArticleViewModel createArticle(ArticleBindingModel model){
 
         Article newArticle = this.modelMapper.map(model, Article.class);
         newArticle.setDate(new Date());
-        try{
-            this.articleRepository.saveAndFlush(newArticle);
-            return true;
-        } catch (Exception e){
-            e.printStackTrace();
-            return false;
-        }
-    }
+        Article created;
 
-    @Override
-    public boolean deleteArticle(String id){
         try {
-            this.articleRepository.deleteById(id);
-            return true;
+            created = this.articleRepository.saveAndFlush(newArticle);
         } catch (Exception e){
             e.printStackTrace();
-            return false;
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Article was not created");
         }
+
+        return this.modelMapper.map(created,ArticleViewModel.class);
     }
 
     @Override
-    public boolean editArticle(String id, ArticleBindingModel model) {
-        Article article = this.articleRepository.getOne(id);
+    public String deleteArticle(String id){
+
+        Article article = this.articleRepository.findById(id).orElse(null);
+
+        if(article == null){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Article with that ID not found");
+        }
+
+        try{
+            this.articleRepository.deleteById(id);
+        } catch (Exception e){
+            e.printStackTrace();
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Article was not deleted successfully");
+        }
+
+        return "Article deleted";
+    }
+
+    @Override
+    public ArticleViewModel editArticle(String id, ArticleBindingModel model) {
+        Article article = this.articleRepository.findById(id).orElse(null);
+
+        if(article == null){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Article with that ID not found");
+        }
+
         article.setShortDescription(model.getShortDescription());
         article.setText(model.getText());
         article.setTitle(model.getTitle());
 
-        try {
-            this.articleRepository.saveAndFlush(article);
-            return true;
+        Article edited;
+
+        try{
+            edited = this.articleRepository.saveAndFlush(article);
         } catch (Exception e){
             e.printStackTrace();
-            return false;
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Article was not edited successfully");
         }
+
+
+        return this.modelMapper.map(edited,ArticleViewModel.class);
     }
 }

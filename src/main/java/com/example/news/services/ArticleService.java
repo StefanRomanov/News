@@ -9,8 +9,8 @@ import java.util.Date;
 
 public interface ArticleService {
     ArticleViewModel getOne(String id);
-    boolean createArticle(ArticleBindingModel model);
-    boolean deleteArticle(String id);
-    boolean editArticle(String id, ArticleBindingModel model);
+    ArticleViewModel createArticle(ArticleBindingModel model);
+    String deleteArticle(String id);
+    ArticleViewModel editArticle(String id, ArticleBindingModel model);
     Page<ArticleViewModel> getAll(Pageable pageable, String title, Date date);
 }

@@ -1,10 +1,10 @@
 package com.example.news.domain.entities;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.validator.constraints.Length;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.util.Date;
 
 @Entity
@@ -33,6 +33,8 @@ public class Article {
         this.id = id;
     }
 
+    @NotEmpty
+    @Length(max = 255, min = 10)
     public String getTitle() {
         return title;
     }
@@ -41,6 +43,7 @@ public class Article {
         this.title = title;
     }
 
+    @Length(max = 512)
     public String getShortDescription() {
         return shortDescription;
     }
@@ -49,6 +52,8 @@ public class Article {
         this.shortDescription = shortDescription;
     }
 
+    @NotEmpty
+    @Length(min = 128)
     public String getText() {
         return text;
     }
@@ -57,6 +62,7 @@ public class Article {
         this.text = text;
     }
 
+    @Temporal(TemporalType.DATE)
     public Date getDate() {
         return date;
     }

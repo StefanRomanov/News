@@ -1,5 +1,9 @@
 package com.example.news.domain.models.binding;
 
+import org.hibernate.validator.constraints.Length;
+
+import javax.validation.constraints.NotEmpty;
+
 public class ArticleBindingModel {
     private String title;
     private String shortDescription;
@@ -8,6 +12,8 @@ public class ArticleBindingModel {
     public ArticleBindingModel() {
     }
 
+    @NotEmpty
+    @Length(max = 255, min = 10)
     public String getTitle() {
         return title;
     }
@@ -16,6 +22,7 @@ public class ArticleBindingModel {
         this.title = title;
     }
 
+    @Length(max = 512)
     public String getShortDescription() {
         return shortDescription;
     }
@@ -24,6 +31,8 @@ public class ArticleBindingModel {
         this.shortDescription = shortDescription;
     }
 
+    @NotEmpty
+    @Length(min = 128)
     public String getText() {
         return text;
     }

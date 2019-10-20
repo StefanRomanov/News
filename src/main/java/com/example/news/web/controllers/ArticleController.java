@@ -36,17 +36,17 @@ public class ArticleController {
     };
 
     @PutMapping(value = "/articles/{id}", produces = "application/json")
-    public @ResponseBody boolean editArticle(@PathVariable String id, @RequestBody ArticleBindingModel model){
+    public @ResponseBody ArticleViewModel editArticle(@PathVariable String id, @Valid @RequestBody ArticleBindingModel model){
         return this.articleService.editArticle(id,model);
     };
 
     @DeleteMapping(value = "/articles/{id}", produces = "application/json")
-    public @ResponseBody boolean deleteArticle(@PathVariable String id){
+    public @ResponseBody String deleteArticle(@PathVariable String id){
         return this.articleService.deleteArticle(id);
     };
 
     @PostMapping(value = "/articles", produces = "application/json")
-    public @ResponseBody boolean  createArticle(@Valid @RequestBody ArticleBindingModel model){
+    public @ResponseBody ArticleViewModel  createArticle(@Valid @RequestBody ArticleBindingModel model){
         return this.articleService.createArticle(model);
     };
 }
